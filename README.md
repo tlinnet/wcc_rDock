@@ -33,5 +33,6 @@ source build_Dockerfile.sh
 # Launch on mybinder
 
 * [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/tlinnet/wcc_rDock/master) https://mybinder.org/v2/gh/tlinnet/wcc_rDock/master
+* [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/tlinnet/wcc_rDock/master?filepath=01_initial_try.ipynb) 01_initial_try.ipynb
 
 
