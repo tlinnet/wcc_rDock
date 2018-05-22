@@ -1,12 +1,8 @@
 # rDock python object
 
-import uuid
-from rdkit import Chem
 import os, re
-import numpy as np
 import tempfile
 import subprocess
-from subprocess import call
 import pandas as pd
 from io import StringIO
 import random
@@ -64,7 +60,7 @@ END_SECTION"""
 		try:
 			os.close(self.customfile_fd)
 		except:
-			if self.debug: print "Exception in closing file descriptor"
+			if self.debug: print("Exception in closing file descriptor")
 
 
 	def deletefile(self, filename):
@@ -72,7 +68,7 @@ END_SECTION"""
 			os.remove(filename)
 		else:
 			if self.debug:
-				print "can't remove; %s does not exist"%filename
+				print("can't remove; %s does not exist"%filename)
 
 	def execute_cmd(self,command):
 		ext_process = subprocess.Popen(command.split(" "), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -84,7 +80,7 @@ END_SECTION"""
 
 	def print_log(self):
 		with open(self.logfile, "r") as logfile:
-			print logfile.read()
+			print(logfile.read())
 
 
 	def _write_parmfile(self):
@@ -92,7 +88,7 @@ END_SECTION"""
 		parmstext = re.sub('XXXRECEPTORXXX',self.receptorfile, self.parmtemplate)
 		parmstext = re.sub('XXXAUTOBOXLIGANDXXXX', self.autoboxligand, parmstext)
 		tfile = file(self.customfile, "w")
-		if self.debug: print parmstext
+		if self.debug: print(parmstext)
 		tfile.write(parmstext)
 		tfile.close()
 
@@ -102,7 +98,7 @@ END_SECTION"""
 			self._write_parmfile()
 
 		command = 'rbcavity -r %s -was'%self.customfile
-		if self.debug: print command
+		if self.debug: print(command)
 		#Execute and append to log
 		self.append_log(self.execute_cmd(command)[0])		
 
@@ -113,10 +109,10 @@ END_SECTION"""
 			self._make_activesite()
 		ligand = self.ligandfile
 		parmfile = self.customfile
-		if self.debug: print "Docking using %s"%self.customfile
+		if self.debug: print("Docking using %s"%self.customfile)
 		# Dock using the customfile
 		command = '%s -r %s -p dock.prm -n %s -i %s -o %s' % (self.rdock, self.customfile, n, ligand, dockfile)
-		if self.debug: print command
+		if self.debug: print(command)
 		
 		#self.append_log(self.execute_cmd(command)[0])
 
@@ -142,7 +138,7 @@ END_SECTION"""
 			p.wait()
 			if self.debug:
 				f.seek(0)
-				print f.read()
+				print(f.read())
 			f.close()
 
 		#Concatenate output

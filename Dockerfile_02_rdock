@@ -48,3 +48,5 @@ ENV PATH $PATH:$RBT_ROOT/bin
 RUN cd $HOME && \
     svn export https://github.com/tlinnet/wcc_pdbbind_data/trunk/pdbbind_v2017_refined pdbbind_v2017_refined
 
+# Copy over files
+COPY rdock.py $HOME/rdock.py
