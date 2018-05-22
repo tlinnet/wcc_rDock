@@ -133,7 +133,7 @@ END_SECTION"""
 			#dockfile = self.dockfile + "_%s"%i
 			#print(dockfile)
 			command = '%s -r %s -p dock.prm -n %s -i %s -o %s -s %s' % (self.rdock, self.customfile, self.dockruns/n, ligand, dockfile, random.randint(0,100000000))
-			#f= os.tmpfile()
+			f= os.tmpfile()
 			#f = tempfile.TemporaryFile()
 			p = subprocess.Popen(command.split(" "), stdout = f)
 			processes.append((p,f))
