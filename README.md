@@ -26,3 +26,12 @@ Or bioconda. This is currently only packaged for linux.
 
 ### Docker image
 
+```bash
+source build_Dockerfile.sh
+```
+
+# Launch on mybinder
+
+* [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/tlinnet/wcc_rDock/master) https://mybinder.org/v2/gh/tlinnet/wcc_rDock/master
+
+
