@@ -44,3 +44,7 @@ ENV PATH $PATH:$RBT_ROOT/bin
 #    make linux-g++-64 && \
 #    make test
 
+# Get data
+RUN cd $HOME && \
+    svn export https://github.com/tlinnet/wcc_pdbbind_data/trunk/pdbbind_v2017_refined pdbbind_v2017_refined
+

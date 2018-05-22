@@ -18,7 +18,7 @@ USER root
 RUN apt-get update
 
 # General packages.
-ENV BUILD_PACKAGES="htop curl wget unzip git nano"
+ENV BUILD_PACKAGES="htop curl wget unzip git nano subversion"
 
 # Build packages for rDock.
 # packages before compiling and running rDock:
