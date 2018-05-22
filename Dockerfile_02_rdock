@@ -33,3 +33,14 @@ RUN cd $HOME && \
 ENV RBT_ROOT /home/jovyan/rDock_2013.1_src
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:$RBT_ROOT/lib
 ENV PATH $PATH:$RBT_ROOT/bin  
+
+# hacked rdock code to remove check for 3D structures
+RUN cd $HOME && \
+    curl -L https://github.com/InformaticsMatters/rdock_docker/commit/c07a70f4e4b7113203aa7ceceb177205da59977b.patch -o hacked_rdock_code_to_remove_check_for_3D_structures.patch && \
+    cat rDock_2013.1_src/src/lib/RbtMdlFileSource.cxx | grep -A 3 "DM 08 Aug 2000" && \
+    git apply hacked_rdock_code_to_remove_check_for_3D_structures.patch && \
+    cat rDock_2013.1_src/src/lib/RbtMdlFileSource.cxx | grep -A 3 "DM 08 Aug 2000" && \
+    cd rDock_2013.1_src/build && \
+    make linux-g++-64 && \
+    make test
+
