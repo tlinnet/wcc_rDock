@@ -12,6 +12,8 @@ class Rdock(object):
 		self.ligandfile = ligandfile
 		self.receptorfile = receptorfile
 		self.dockruns = 50
+		# -n <nRuns> - number of runs/ligand (default=1)
+		self.n = 1
 		if autoboxligand == None:
 			self.autoboxligand = self.ligandfile
 		else:
@@ -75,7 +77,7 @@ END_SECTION"""
 		return ext_process.communicate()
 	
 	def append_log(self,text):
-		with open(self.logfile, "a") as logfile:
+		with open(self.logfile, "ab") as logfile:
 		    logfile.write(text)
 
 	def print_log(self):
@@ -87,7 +89,7 @@ END_SECTION"""
 		#Write the temporary parmsfile:
 		parmstext = re.sub('XXXRECEPTORXXX',self.receptorfile, self.parmtemplate)
 		parmstext = re.sub('XXXAUTOBOXLIGANDXXXX', self.autoboxligand, parmstext)
-		tfile = file(self.customfile, "w")
+		tfile = open(self.customfile, "w")
 		if self.debug: print(parmstext)
 		tfile.write(parmstext)
 		tfile.close()
@@ -111,7 +113,7 @@ END_SECTION"""
 		parmfile = self.customfile
 		if self.debug: print("Docking using %s"%self.customfile)
 		# Dock using the customfile
-		command = '%s -r %s -p dock.prm -n %s -i %s -o %s' % (self.rdock, self.customfile, n, ligand, dockfile)
+		command = '%s -r %s -p dock.prm -n %s -i %s -o %s' % (self.rdock, self.customfile, self.n, ligand, self.dockfile)
 		if self.debug: print(command)
 		
 		#self.append_log(self.execute_cmd(command)[0])
