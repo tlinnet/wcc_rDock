@@ -103,4 +103,4 @@ ENV PATH $PATH:$RBT_ROOT/bin
 # Copy over notebooks
 #COPY 01_initial_try.ipynb $HOME/01_initial_try.ipynb
 
-#WORKDIR $HOME/workdir
+WORKDIR $HOME/work
