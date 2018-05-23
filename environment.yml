@@ -1,7 +1,0 @@
-name: rDock
-channels:
-- defaults
-- conda-forge
-- bioconda
-dependencies:
-- rdock

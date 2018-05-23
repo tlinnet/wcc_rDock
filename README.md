@@ -13,16 +13,10 @@ Register at pdbbind.org.cn
 
 http://rdock.sourceforge.net/
 
-This is rDock for Linux. We can either use use a Docker image
+This is rDock for Linux. We can build a custom Docker image
 
 * https://hub.docker.com/r/informaticsmatters/rdock/
 * https://github.com/InformaticsMatters/rdock_docker
-
-Or bioconda. This is currently only packaged for linux.
-
-* https://anaconda.org/bioconda/rdock
-* https://bioconda.github.io/recipes/rdock/README.html
-* https://quay.io/repository/biocontainers/rdock
 
 ### Docker image
 
