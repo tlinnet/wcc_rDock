@@ -48,13 +48,15 @@ USER ${NB_USER}
 USER ${NB_USER}
 
 #ENV ANACONDA_PACKAGES=""
-#ENV PIP_PACKAGES=""
+ENV BIOCONDA_PACKAGES="openbabel"
+ENV PIP_PACKAGES="autopep8"
 #ENV PIP_PACKAGES="$PIP_PACKAGES other-package"
 
 # Install
-#RUN echo "" && \
+RUN echo "" && \
+    conda install -c bioconda $BIOCONDA_PACKAGES  && \
+    pip install $PIP_PACKAGES
 #    conda install -c anaconda $ANACONDA_PACKAGES  && \
-#    pip install $PIP_PACKAGES
 
 # Install rDock
 RUN cd $HOME && \
@@ -74,17 +76,27 @@ RUN cd $HOME && \
 
 ENV RBT_ROOT /home/jovyan/rDock_2013.1_src
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:$RBT_ROOT/lib
-ENV PATH $PATH:$RBT_ROOT/bin  
+ENV PATH $PATH:$RBT_ROOT/bin
+
+# Fix RMSD script from python 2 to python 3
+RUN cd $HOME && \
+    cd /home/jovyan/rDock_2013.1_src/bin && \
+    # Fix print and 3 stuff && \
+    2to3 -w sdrmsd && \
+    mv sdrmsd.bak sdrmsd.bak_or && \
+    cp sdrmsd sdrmsd.bak_2to3 && \
+    # Fix tab characters to 4 spaces && \
+    autopep8 -i sdrmsd
 
 # hacked rdock code to remove check for 3D structures
-#RUN cd $HOME && \
-#    curl -L https://github.com/InformaticsMatters/rdock_docker/commit/c07a70f4e4b7113203aa7ceceb177205da59977b.patch -o hacked_rdock_code_to_remove_check_for_3D_structures.patch && \
-#    cat rDock_2013.1_src/src/lib/RbtMdlFileSource.cxx | grep -A 3 "DM 08 Aug 2000" && \
-#    git apply hacked_rdock_code_to_remove_check_for_3D_structures.patch && \
-#    cat rDock_2013.1_src/src/lib/RbtMdlFileSource.cxx | grep -A 3 "DM 08 Aug 2000" && \
-#    cd rDock_2013.1_src/build && \
-#    make linux-g++-64 && \
-#    make test
+RUN cd $HOME && \
+    curl -L https://github.com/InformaticsMatters/rdock_docker/commit/c07a70f4e4b7113203aa7ceceb177205da59977b.patch -o hacked_rdock_code_to_remove_check_for_3D_structures.patch && \
+    cat rDock_2013.1_src/src/lib/RbtMdlFileSource.cxx | grep -A 3 "DM 08 Aug 2000" && \
+    git apply hacked_rdock_code_to_remove_check_for_3D_structures.patch && \
+    cat rDock_2013.1_src/src/lib/RbtMdlFileSource.cxx | grep -A 3 "DM 08 Aug 2000" && \
+    cd rDock_2013.1_src/build && \
+    make linux-g++-64 && \
+    make test
 
 ################################################################################
 #FROM tlinnet/rdock:02_rdock
