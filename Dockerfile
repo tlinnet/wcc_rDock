@@ -25,8 +25,8 @@ ENV BUILD_PACKAGES="htop curl wget unzip git nano subversion"
 # gcc and g++ compilers version > 3.3, make, cppunit and cppunit-devel, popt and popt-devel.
 ENV BUILD_PACKAGES="$BUILD_PACKAGES csh gcc g++ make libcppunit-dev libpopt-dev"
 
-# Install pymol
-ENV BUILD_PACKAGES="$BUILD_PACKAGES pymol"
+# Install pymol and parallel
+ENV BUILD_PACKAGES="$BUILD_PACKAGES pymol parallel"
 
 # Install
 RUN echo "Installing these packages" $BUILD_PACKAGES
