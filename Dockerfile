@@ -26,7 +26,7 @@ ENV BUILD_PACKAGES="htop curl wget unzip git nano subversion"
 ENV BUILD_PACKAGES="$BUILD_PACKAGES csh gcc g++ make libcppunit-dev libpopt-dev"
 
 # Install pymol and parallel
-ENV BUILD_PACKAGES="$BUILD_PACKAGES pymol parallel"
+ENV BUILD_PACKAGES="$BUILD_PACKAGES pymol parallel tmux"
 
 # Install
 RUN echo "Installing these packages" $BUILD_PACKAGES
@@ -52,12 +52,14 @@ USER ${NB_USER}
 
 #ENV ANACONDA_PACKAGES=""
 ENV BIOCONDA_PACKAGES="openbabel"
+ENV RDKIT_PACKAGES="rdkit"
 ENV PIP_PACKAGES="autopep8"
 #ENV PIP_PACKAGES="$PIP_PACKAGES other-package"
 
 # Install
 RUN echo "" && \
     conda install -c bioconda $BIOCONDA_PACKAGES  && \
+    conda install -c rdkit $RDKIT_PACKAGES  && \
     pip install $PIP_PACKAGES
 #    conda install -c anaconda $ANACONDA_PACKAGES  && \
 
